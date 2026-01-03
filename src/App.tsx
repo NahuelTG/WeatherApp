@@ -1,9 +1,10 @@
+import SearchCity from "@/components/SearchCity";
 import "./App.css";
 
 function App() {
    return (
       <>
-         <p>Hola Mundo</p>
+         <SearchCity />
       </>
    );
 }
