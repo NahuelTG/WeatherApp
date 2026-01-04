@@ -2,6 +2,9 @@ import { useState } from "react";
 
 import type { WeatherData } from "@/types/weather";
 
+import { getWeatherInfo } from "@/helpers/weather_helper";
+import { formatFullDate } from "@/helpers/date";
+
 interface SearchCityProps {
    onSearch: (cityName: string) => void;
    weather: WeatherData | null;
@@ -9,6 +12,7 @@ interface SearchCityProps {
 
 export const SearchCity = ({ onSearch, weather }: SearchCityProps) => {
    const [inputValue, setInputValue] = useState("");
+   const currentWeatherInfo = weather ? getWeatherInfo(weather.current.weatherCode) : null;
 
    const handleSearch = () => {
       if (inputValue.trim()) {
@@ -20,13 +24,6 @@ export const SearchCity = ({ onSearch, weather }: SearchCityProps) => {
       if (e.key === "Enter") {
          handleSearch();
       }
-   };
-
-   const formatDate = () => {
-      const date = new Date();
-      const day = date.getDate();
-      const month = date.toLocaleDateString("es-ES", { month: "long" });
-      return `${day} ${month}`;
    };
 
    return (
@@ -48,15 +45,16 @@ export const SearchCity = ({ onSearch, weather }: SearchCityProps) => {
                   <h2>{weather.city}</h2>
                   <p>{weather.country}</p>
                   <p>{Math.round(weather.current.temperature)}°</p>
-                  <p>Parcialmente nublado</p>
+                  {currentWeatherInfo && <p>{currentWeatherInfo.label}</p>}
+
                   <div>
                      <article>
                         <p>Viento</p>
-                        <h4>{weather.current.windSpeed} km/h</h4>
+                        <h4>{weather.current.windSpeed} Km/h</h4>
                      </article>
                      <article>
                         <p>Fecha</p>
-                        <h4>{formatDate()}</h4>
+                        <h4>{formatFullDate(new Date().toISOString())}</h4>
                      </article>
                   </div>
                </div>
