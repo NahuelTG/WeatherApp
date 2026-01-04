@@ -1,5 +1,5 @@
-const GEOCODING_BASE_URL = "https://geocoding-api.open-meteo.com/v1/search";
-const WEATHER_BASE_URL = "https://api.open-meteo.com/v1/forecast";
+const GEOCODING_BASE_URL = import.meta.env.VITE_GEOCODING_BASE_URL;
+const WEATHER_BASE_URL = import.meta.env.VITE_WEATHER_BASE_URL;
 
 export const searchCity = async (city: string) => {
    const response = await fetch(`${GEOCODING_BASE_URL}?name=${encodeURIComponent(city)}&count=1&language=es&format=json`);
