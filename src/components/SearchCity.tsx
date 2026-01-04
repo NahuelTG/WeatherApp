@@ -1,7 +1,11 @@
 import { useState } from "react";
+
 import type { WeatherData } from "@/types/weather";
+
 import { getWeatherInfo } from "@/helpers/weather_helper";
 import { formatFullDate } from "@/helpers/date";
+
+import Search from "@/assets/icons/search.svg?react";
 
 import styles from "./SearchCity.module.css";
 
@@ -46,7 +50,7 @@ export const SearchCity = ({ onSearch, weather }: SearchCityProps) => {
                   placeholder="Buscar ciudad..."
                />
                <button className={styles.button} onClick={handleSearch}>
-                  Buscar
+                  <Search />
                </button>
             </div>
 
