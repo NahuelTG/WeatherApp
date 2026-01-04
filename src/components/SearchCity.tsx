@@ -1,7 +1,5 @@
 import { useState } from "react";
-
 import type { WeatherData } from "@/types/weather";
-
 import { getWeatherInfo } from "@/helpers/weather_helper";
 import { formatFullDate } from "@/helpers/date";
 
@@ -12,6 +10,7 @@ interface SearchCityProps {
 
 export const SearchCity = ({ onSearch, weather }: SearchCityProps) => {
    const [inputValue, setInputValue] = useState("");
+
    const currentWeatherInfo = weather ? getWeatherInfo(weather.current.weatherCode) : null;
 
    const handleSearch = () => {
@@ -40,13 +39,16 @@ export const SearchCity = ({ onSearch, weather }: SearchCityProps) => {
                placeholder="Buscar ciudad..."
             />
             <button onClick={handleSearch}>Buscar</button>
-            {weather && (
+
+            {weather && currentWeatherInfo && (
                <div>
                   <h2>{weather.city}</h2>
                   <p>{weather.country}</p>
-                  //SVG
+
+                  <currentWeatherInfo.icon />
+
                   <p>{Math.round(weather.current.temperature)}°</p>
-                  {currentWeatherInfo && <p>{currentWeatherInfo.label}</p>}
+                  <p>{currentWeatherInfo.label}</p>
                   <div>
                      <article>
                         <p>Viento</p>

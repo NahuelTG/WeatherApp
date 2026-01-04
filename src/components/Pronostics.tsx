@@ -19,12 +19,14 @@ export const Pronostics = ({ daily }: PronosticsProps) => {
 
          <div>
             {daily.map((day, index) => {
-               const { label } = getWeatherInfo(day.weatherCode);
+               const { label, icon: WeatherIcon } = getWeatherInfo(day.weatherCode);
 
                return (
                   <article key={day.date}>
                      <h4>{getDayName(day.date, index)}</h4>
-                     //SVG
+
+                     <WeatherIcon />
+
                      <p>{label}</p>
                      <div>
                         <p>{Math.round(day.maxTemp)}°</p>
