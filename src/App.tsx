@@ -1,10 +1,10 @@
-import SearchCity from "@/components/SearchCity";
+import { Panel } from "./components/Panel";
 import "./App.css";
 
 function App() {
    return (
       <>
-         <SearchCity />
+         <Panel />
       </>
    );
 }
