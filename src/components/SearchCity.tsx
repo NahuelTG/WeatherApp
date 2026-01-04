@@ -6,6 +6,7 @@ export const SearchCity = () => {
                <h1>WeatherApp</h1>
             </header>
             <input type="text" />
+            <button>Buscar</button>
             <div>
                <h2>Cochabamba</h2>
                <p>Bolivia</p>
