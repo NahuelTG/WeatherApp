@@ -1,73 +1,137 @@
-# React + TypeScript + Vite
+# Proyecto React + TypeScript con Vite y SWC
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este proyecto está construido utilizando Vite como herramienta de desarrollo, React con TypeScript (React.tsx) como librería principal y SWC como compilador, con el objetivo de lograr una experiencia de desarrollo rápida, moderna y alineada con una implementación lo más "pura" posible de React.
 
-Currently, two official plugins are available:
+## Tecnologías principales
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+-  **Vite** – Bundler y servidor de desarrollo
+-  **React** – Librería de interfaz de usuario
+-  **TypeScript** – Tipado estático
+-  **SWC** – Compilador escrito en Rust, enfocado en alto rendimiento
+-  **pnpm** – Gestor de dependencias
+-  **CSS Modules** – Estilos encapsulados por componente
+-  **SVGR** – Importación de SVGs como componentes React
 
-## React Compiler
+## Requisitos previos
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+Antes de iniciar, asegúrate de tener instalado:
 
-## Expanding the ESLint configuration
+-  **Node.js** (versión recomendada: LTS)
+-  **pnpm**
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install -g pnpm
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Instalación y ejecución del proyecto
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 1. Clonar el repositorio
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+git clone <URL_DEL_REPOSITORIO>
+cd <NOMBRE_DEL_PROYECTO>
+```
+
+### 2. Instalación de dependencias
+
+Se recomienda utilizar pnpm para mantener coherencia con el entorno del proyecto:
+
+```bash
+pnpm install
+```
+
+### 3. Ejecución en entorno de desarrollo
+
+```bash
+pnpm run dev
+```
+
+El proyecto estará disponible por defecto en:
+
+```
+http://localhost:5173
+```
+
+## Scripts disponibles
+
+-  `pnpm run dev` – Inicia el servidor de desarrollo
+-  `pnpm run build` – Genera la versión de producción
+-  `pnpm run preview` – Previsualiza el build de producción
+
+## Decisiones técnicas
+
+### Elección del entorno de desarrollo
+
+Se evaluaron las siguientes alternativas:
+
+-  Vite
+-  Astro
+-  Next.js
+
+La decisión final fue **Vite**, por las siguientes razones:
+
+-  Permite trabajar con React de forma directa y sin abstracciones adicionales.
+-  Ofrece un entorno de desarrollo rápido y ligero.
+-  Facilita una experiencia más cercana a la implementación "pura" de React, que es relevante para el objetivo de este proyecto.
+
+**Astro**, aunque muy eficiente y veloz, introduce una forma distinta de integrar React mediante archivos y patrones que no se alinean completamente con el propósito de la prueba.
+
+**Next.js**, por su parte, es un framework más robusto que incorpora características (routing avanzado, SSR, SSG, etc.) que no son necesarias para este caso y que modificarían significativamente la forma de implementación.
+
+### Uso de SWC
+
+Se utiliza **SWC** como compilador en lugar de Babel debido a que:
+
+-  Está escrito en Rust, lo que mejora notablemente los tiempos de compilación.
+-  Reduce el tiempo de ejecución en desarrollo y build.
+-  Está perfectamente integrado con Vite y React.
+
+### Estructura del proyecto
+
+La estructura del proyecto se basa en experiencia previa y buenas prácticas, priorizando:
+
+-  Claridad en la organización de carpetas
+-  Separación de responsabilidades
+-  Escalabilidad
+
+Se optó por una estructura simple y funcional, evitando sobreingeniería.
+
+### Arquitectura de estado y lógica
+
+Se implementa un único hook principal que es useWeather, encargado de:
+
+-  Centralizar la lógica de interacción
+-  Construir la capa de acceso a la API (servicios)
+-  Controlar el flujo de datos hacia la vista
+
+Este enfoque permite mantener componentes más limpios y una lógica reutilizable.
+
+### Estilos: CSS Modules
+
+Se decidió utilizar **CSS Modules** debido a que:
+
+-  Evitan colisiones de nombres de clases
+-  Facilitan el mantenimiento de estilos por componente
+-  No requieren una metodología adicional (como BEM), simplificando el desarrollo
+
+### Desarrollo de la interfaz
+
+La interfaz fue diseñada utilizando **Gemini**, apoyándose en la integración con canvas para:
+
+-  Prototipar visualmente la UI
+-  Acelerar el diseño de componentes
+-  Mantener coherencia visual durante la implementación
+
+### Manejo de SVGs
+
+Se utiliza **SVGR** para Vite, lo que permite:
+
+-  Importar SVGs directamente como componentes React
+-  Reducir código innecesario
+-  Mejorar la legibilidad y reutilización de íconos
+
+**Ejemplo:**
+
+```tsx
+import IconExample from "@/assets/icon.svg?react";
 ```
