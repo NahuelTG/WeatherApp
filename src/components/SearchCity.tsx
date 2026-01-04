@@ -44,9 +44,9 @@ export const SearchCity = ({ onSearch, weather }: SearchCityProps) => {
                <div>
                   <h2>{weather.city}</h2>
                   <p>{weather.country}</p>
+                  //SVG
                   <p>{Math.round(weather.current.temperature)}°</p>
                   {currentWeatherInfo && <p>{currentWeatherInfo.label}</p>}
-
                   <div>
                      <article>
                         <p>Viento</p>

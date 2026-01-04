@@ -24,8 +24,8 @@ export const Pronostics = ({ daily }: PronosticsProps) => {
                return (
                   <article key={day.date}>
                      <h4>{getDayName(day.date, index)}</h4>
+                     //SVG
                      <p>{label}</p>
-
                      <div>
                         <p>{Math.round(day.maxTemp)}°</p>
                         <p>Max</p>
