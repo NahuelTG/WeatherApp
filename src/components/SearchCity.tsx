@@ -3,6 +3,8 @@ import type { WeatherData } from "@/types/weather";
 import { getWeatherInfo } from "@/helpers/weather_helper";
 import { formatFullDate } from "@/helpers/date";
 
+import styles from "./SearchCity.module.css";
+
 interface SearchCityProps {
    onSearch: (cityName: string) => void;
    weather: WeatherData | null;
@@ -27,29 +29,41 @@ export const SearchCity = ({ onSearch, weather }: SearchCityProps) => {
 
    return (
       <>
-         <section>
-            <header>
-               <h1>WeatherApp</h1>
+         <section className={styles.container}>
+            <header className={styles.header}>
+               <h1 className={styles.title}>
+                  Weather<span>App</span>
+               </h1>
             </header>
-            <input
-               type="text"
-               value={inputValue}
-               onChange={(e) => setInputValue(e.target.value)}
-               onKeyDown={handleKeyDown}
-               placeholder="Buscar ciudad..."
-            />
-            <button onClick={handleSearch}>Buscar</button>
+
+            <div className={styles.search}>
+               <input
+                  className={styles.input}
+                  type="text"
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  placeholder="Buscar ciudad..."
+               />
+               <button className={styles.button} onClick={handleSearch}>
+                  Buscar
+               </button>
+            </div>
 
             {weather && currentWeatherInfo && (
-               <div>
-                  <h2>{weather.city}</h2>
-                  <p>{weather.country}</p>
+               <div className={styles.current}>
+                  <h2 className={styles.city}>{weather.city}</h2>
+                  <p className={styles.country}>{weather.country}</p>
 
-                  <currentWeatherInfo.icon />
+                  <div className={styles.weatherIcon}>
+                     <currentWeatherInfo.icon />
+                  </div>
 
-                  <p>{Math.round(weather.current.temperature)}°</p>
-                  <p>{currentWeatherInfo.label}</p>
-                  <div>
+                  <p className={styles.temp}>{Math.round(weather.current.temperature)}°</p>
+
+                  <p className={styles.label}>{currentWeatherInfo.label}</p>
+
+                  <div className={styles.stats}>
                      <article>
                         <p>Viento</p>
                         <h4>{weather.current.windSpeed} Km/h</h4>
@@ -61,9 +75,9 @@ export const SearchCity = ({ onSearch, weather }: SearchCityProps) => {
                   </div>
                </div>
             )}
-            <p>Buscador</p>
          </section>
-         <section>
+
+         <section className={styles.placeholder}>
             <p>Pronósticos</p>
          </section>
       </>

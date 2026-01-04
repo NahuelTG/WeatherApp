@@ -1,0 +1,41 @@
+.screen {
+   /* Positioning */
+   position: relative;
+
+   /* Display & Visibility */
+   display: flex;
+
+   /* Box Model */
+   padding: 32px;
+
+   /* Dimensions */
+   min-height: 100vh;
+
+   /* Visual */
+   background: linear-gradient(135deg, #020617, #1e3a8a, #020617);
+   font-family: system-ui, sans-serif;
+}
+
+.glassContainer {
+   /* Positioning */
+   position: relative;
+
+   /* Display & Visibility */
+   display: flex;
+   overflow: hidden;
+
+   /* Box Model */
+   margin: auto;
+   border: 1px solid rgba(255, 255, 255, 0.15);
+   border-radius: 24px;
+
+   /* Dimensions */
+   width: 100%;
+   max-width: 1100px;
+   min-height: 600px;
+
+   /* Visual */
+   background-color: rgba(255, 255, 255, 0.08);
+   backdrop-filter: blur(16px);
+   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
