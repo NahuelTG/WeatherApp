@@ -12,9 +12,11 @@ import styles from "./SearchCity.module.css";
 interface SearchCityProps {
    onSearch: (cityName: string) => void;
    weather: WeatherData | null;
+   loading: boolean;
+   error: string | null;
 }
 
-export const SearchCity = ({ onSearch, weather }: SearchCityProps) => {
+export const SearchCity = ({ onSearch, weather, loading, error }: SearchCityProps) => {
    const [inputValue, setInputValue] = useState("");
 
    const currentWeatherInfo = weather ? getWeatherInfo(weather.current.weatherCode) : null;
@@ -48,13 +50,33 @@ export const SearchCity = ({ onSearch, weather }: SearchCityProps) => {
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder="Buscar ciudad..."
+                  disabled={loading}
                />
-               <button className={styles.button} onClick={handleSearch}>
+               <button className={styles.button} onClick={handleSearch} disabled={loading}>
                   <Search />
                </button>
             </div>
 
-            {weather && currentWeatherInfo && (
+            {!weather && !loading && !error && (
+               <div className={styles.initialMessage}>
+                  <p>Puedes comenzar buscando una ubicación</p>
+               </div>
+            )}
+
+            {loading && (
+               <div className={styles.loadingContainer}>
+                  <div className={styles.spinner}></div>
+                  <p className={styles.loadingText}>Buscando información del clima...</p>
+               </div>
+            )}
+
+            {error && (
+               <div className={styles.errorContainer}>
+                  <p className={styles.errorText}>{error}</p>
+               </div>
+            )}
+
+            {weather && currentWeatherInfo && !loading && (
                <div className={styles.current}>
                   <h2 className={styles.city}>{weather.city}</h2>
                   <p className={styles.country}>{weather.country}</p>

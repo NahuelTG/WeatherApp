@@ -58,7 +58,12 @@ export const useWeather = () => {
          });
       } catch (err: unknown) {
          const errorMessage = err instanceof Error ? err.message : "Ocurrió un error al obtener el clima.";
-         console.log(errorMessage);
+
+         setState({
+            weather: null,
+            loading: false,
+            error: errorMessage,
+         });
       }
    }, []);
 
